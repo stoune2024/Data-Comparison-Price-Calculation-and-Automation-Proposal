@@ -10,21 +10,20 @@ from app.infrascructure.excel_writer import ExcelWriter
 class ProcessingService:
     def __init__(
         self,
-        reader: ExcelReader,
         writer: ExcelWriter,
         matcher: ProductMatcher,
         pricing: PricingCalculator,
-    ) -> None:
-        self._reader = reader
+    ):
         self._writer = writer
         self._matcher = matcher
         self._pricing = pricing
 
-    def process(self, output_path: str | Path) -> None:
+    def process(self, input_path: str | Path, output_path: str | Path) -> None:
+        reader = ExcelReader(input_path)
 
-        products_1c = self._reader.read_products_1c()
+        products_1c = reader.read_products_1c()
 
-        marketplace_products = self._reader.read_marketplace_products()
+        marketplace_products = reader.read_marketplace_products()
 
         result: list[MatchedProduct] = []
 
