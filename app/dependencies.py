@@ -5,9 +5,8 @@ from app.services.pricing_service import PricingService
 from app.services.processing_service import ProcessingService
 
 
-def get_processing_service(file_path: str) -> ProcessingService:
+def get_processing_service() -> ProcessingService:
     return ProcessingService(
-        reader=ExcelReader(file_path),
         writer=ExcelWriter(),
         matcher=FuzzyMatcher(),
         pricing=PricingService(),
