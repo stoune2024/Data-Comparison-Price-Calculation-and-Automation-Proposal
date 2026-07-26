@@ -6,7 +6,6 @@ from app.domain.pricing import PricingCalculator
 
 
 class PricingService(PricingCalculator):
-
     def calculate(self, product: MatchedProduct) -> float | None:
 
         if product.status != MatchingStatus.MATCHED:
@@ -29,9 +28,7 @@ class PricingService(PricingCalculator):
         commission = marketplace.commission / 100
 
         expenses = (
-            marketplace.handling
-            + marketplace.logistics_min
-            + marketplace.delivery
+            marketplace.handling + marketplace.logistics_min + marketplace.delivery
         )
 
         denominator = 1 - commission
@@ -39,8 +36,6 @@ class PricingService(PricingCalculator):
         if denominator <= 0:
             return None
 
-        price = (
-            1.3 * cost + expenses
-        ) / denominator
+        price = (1.3 * cost + expenses) / denominator
 
         return math.ceil(price)

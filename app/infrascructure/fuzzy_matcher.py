@@ -7,12 +7,10 @@ from app.domain.models import (
     MatchedProduct,
     Product1C,
 )
-
 from app.infrascructure.utils import normalize
 
 
 class FuzzyMatcher(ProductMatcher):
-
     MATCH_THRESHOLD = 95
     REVIEW_THRESHOLD = 85
 
@@ -45,7 +43,6 @@ class FuzzyMatcher(ProductMatcher):
         best_score = 0
 
         for marketplace in marketplace_products:
-
             score = fuzz.token_sort_ratio(
                 normalize(product.name),
                 normalize(marketplace.name),
